@@ -56,6 +56,7 @@ public class QuizGenFX extends Application {
 
         stage.setScene(scene);
         stage.show();
+        RationalEqn.Set01();
     }
 }
 

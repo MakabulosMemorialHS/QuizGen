@@ -1,0 +1,76 @@
+/* *******************************************************************************
+ * QuizGenFX.css
+ *
+ * For use with the QuizGenFX.java
+ *
+ * Information about the CSS properties mentioned herein can be
+ * found in
+ *
+ * http://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#intro
+ *
+ * For choosing HTML colors go to
+ *
+ * http://www.w3schools.com/colors/colors_picker.asp
+ *
+ * The property names are very confusing. Read the comments besides each
+ * CSS property very carefully.
+ *
+ * ******************************************************************************/
+
+.root {   /* This selector applies to the root node of a scene graph */
+    -fx-background-color : #dcdad6;
+    -fx-background-radius : 5.0;
+    -fx-background-insets : 5.0 5.0 5.0 5.0;
+    -fx-padding : 10pt; /* margin around the grid */
+    -fx-spacing : 8pt;  /* spaces between child nodes */
+    -fx-alignment : center; /* Alignment of the child nodes within the grid. */
+}
+
+.grid { /* Currently unused in QuizGenFX.java */
+    -fx-background-color : #dcdad6;
+    -fx-background-radius : 5.0;
+    -fx-background-insets : 5.0 5.0 5.0 5.0;
+    -fx-padding : 10pt; /* margin around the grid */
+    -fx-spacing : 5pt;  /* spaces between child nodes */
+    -fx-alignment : center; /* Alignment of the child nodes within the grid. */
+}
+
+.button-box {
+    -fx-padding : 10pt;
+    -fx-spacing : 10pt;
+    -fx-alignment : center;
+}
+
+.choice-box {
+    -fx-padding : 3pt; /* margin around the contents */
+    -fx-spacing : 10pt; /* spacing between child nodes */
+    -fx-alignment : center;
+}
+
+.h1 {
+    -fx-font-size : 17pt;
+    -fx-fill : #24248f;   /* This would be the font color. No joking. */
+    -fx-text-alignment : center;
+    -fx-font-weight : bold;
+    -fx-padding : 10pt;
+    -fx-margins : 12pt;
+    -fx-wrappingWidth : 100pt;
+}
+
+.h2 {
+    -fx-font-size : 14pt;
+    -fx-fill : #1a0008;
+    -fx-text-alignment : center;
+    -fx-font-weight : bold;
+}
+
+.h3 {
+    -fx-font-size : 12pt;
+    -fx-fill : #1a0008;
+    -fx-text-alignment : center;
+}
+
+.output-area {
+    -fx-fill : #8b008b;
+}
+

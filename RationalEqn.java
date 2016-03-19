@@ -74,8 +74,6 @@ public class RationalEqn {
                + "}$\n\n";
        }
        
-       // Close the enumerate environment of the problem set
-
        fout.println("\\end{enumerate}\n");
 
        // Start print of the answer key.
@@ -91,6 +89,7 @@ public class RationalEqn {
 
        fout.println(
           "\\begin{enumerate}\n"
+          + "\\setlength\\itemsep{0.25in}\n"
           + answerKey
           + "\\end{enumerate}\n"
           + "\\end{document}\n");

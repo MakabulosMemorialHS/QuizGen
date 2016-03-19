@@ -1,7 +1,19 @@
 # QuizGen
 Generate Mathematics Quizzes For High School Algebra.
-This is a new project. The objectives of this project are:
 
-1. Create a program that will automatically generate routine problems
-   in Algebra for student practice.
-2. Use this opportunity to learn more about JavaFX.
+Requirements:
+
+1. JavaFX 8.0
+
+2. LaTeX. We need this to typeset the quizzes.
+ 
+
+How to use:
+
+1. Compile all the java source code.
+
+2. Execute QuizGenFX.class
+
+3. Modify QuizGenFX.css if you wish to change appearance of application.
+ 
+

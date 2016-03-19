@@ -16,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.*;
 import javafx.event.*;
 
@@ -100,11 +102,20 @@ public class QuizGenFX extends Application {
                 String selected = qSelect.getValue();
                 if (selected == "Rational Equations I") {
                     RationalEqn.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Quadratic Equations I") {
+                    QuadraticEqn.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
                 }
                 else {  
-                System.out.println("You have selected " 
-                     + selected 
-                     + ". Unfortunately, that module is currently unimplemented.");
+                    Alert unimplementedAlert = new Alert(AlertType.INFORMATION, 
+                         "The module you have selected is unimplemented.");
+                    unimplementedAlert.showAndWait();
                 }
             }
         });

@@ -64,8 +64,6 @@ public class QuadraticEqn {
        fout.println("\\begin{enumerate}\n");
    
        for (int k = 0; k < 20; ++k) {
-           System.out.println("Creating problem number " + k);
-
            /* We shall create quadratic equations with the form (ax + b)(cx + d) = 0.
               This expands to acx^2 + (bc + ad)x + bd = 0 */
      

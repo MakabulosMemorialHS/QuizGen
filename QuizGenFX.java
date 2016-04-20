@@ -100,7 +100,19 @@ public class QuizGenFX extends Application {
         OKButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 String selected = qSelect.getValue();
-                if (selected == "Rational Equations I") {
+                if (selected == "Linear Equations I") {
+                    LinearEquations.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Linear Equations II") {
+                    LinearEquations.Set02();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Rational Equations I") {
                     RationalEqn.Set01();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");

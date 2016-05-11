@@ -1,7 +1,7 @@
 /* **************************************************
- * RationalEqn.java
+ * Variations.java
  *
- * Rational equations.
+ * Simple Variatonal Problem Drills.
  *
  * Written by Robert Pascual/
  *
@@ -10,7 +10,7 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;     // for PrintWriter and FileOutputStream
 
-public class RationalEqn {
+public class Variations {
 
     public static int GCF(int a, int b) {
         a = Math.abs(a);
@@ -43,11 +43,13 @@ public class RationalEqn {
 	    + "\\begin{document}\n"
 	    + "\\twocolumn [\n"
 	    + "    \\centerline {\\Large \\textbf{Algebra Drills}}\n"
-	    + "    \\centerline{\\textbf{Rational Equations I}}\n"
+	    + "    \\centerline{\\textbf{Variation Problems I}}\n"
 	    + "    \\vspace {0.5 in}\n"
-	    + "]\n");
+	    + "]\n"
+            + "Given that $y$ varies directly with $x$, find (a) the constant of variation,\n"
+            + "(b) the equation that relates $x$ and $y$, (c) the value of $y$ given $x = \\alpha$\n\n");
 
-       // Now generate ten random problems and write it out.
+       // Now generate random problems and write it out.
 
        Random rgen = new Random();
        String answerKey = "";
@@ -55,26 +57,46 @@ public class RationalEqn {
        fout.println("\\begin{enumerate}\n");
    
        for (int k = 0; k < 20; ++k) {
-           int a = rgen.nextInt(51) + 1;
-           int b = rgen.nextInt(20) + 1;
-           int c = rgen.nextInt(12) + 1;
+           System.out.println("Creating problem number " + k);
 
-	   fout.println("\\item\n"
-	       + "\\begin{displaymath}\n"
-	       + "\\frac{1}{x} + \\frac{" + a + "}{" + b + "x} = " + c + "\n"
-	       + "\\end{displaymath}\n"
-	       + "\n");
+	   int a = rgen.nextInt(50) + 1; a = 25 - a; if (a == 0) a = 5;
+           int b = rgen.nextInt(50) + 1; b = 25 - b; if (b == 0) b = 3; 
+           int c = rgen.nextInt(100) + 1; c = 50 - c; if (c == 0) c = 6; 
+
+	   fout.format("\\item $y = %d$ when $x = %d$, $\\alpha = %d$\n",
+                 a, b, c);
 
            // Now the solution.
+    
+           // The constant of variation is k
 
-           int xnumer = a + b;       // Numerator of the solution.
-           int xdenom = b*c;         // Denominator of the solution.
-           int gcf    = RationalEqn.GCF(xnumer, xdenom);
-           answerKey = answerKey + "\\item $x = \\frac{" 
-               + xnumer/gcf 
-               + "}{"
-               + xdenom/gcf
-               + "}$\n\n";
+           int knumer = a;    // Numerator of k
+           int kdenom = b;    // Denominator of k
+           int gcf    = Variations.GCF(knumer, kdenom);
+           String signum = " ";
+           if (knumer * kdenom < 0) signum = "-";
+           int kfracx  = Math.abs(knumer/gcf);
+           int kfracy  = Math.abs(kdenom/gcf);
+
+           // Value of y when x = alpha
+           int alphanumer = c * knumer;
+           int alphadenom = kdenom;
+           gcf    = Variations.GCF(alphanumer, alphadenom);
+           String alphasignum = " ";
+           if (alphanumer * alphadenom < 0) alphasignum = "-";
+           int alphafracx  = Math.abs(alphanumer/gcf);
+           int alphafracy  = Math.abs(alphadenom/gcf);
+
+
+           answerKey = answerKey + 
+               "\\item $k = "
+               + signum
+               + kfracx 
+               + "/"
+               + kfracy + "$"
+               + ";  $y(\\alpha) = " 
+               + alphasignum
+               + alphafracx + "/" + alphafracy + "$\n\n";
        }
        
        fout.println("\\end{enumerate}\n");
@@ -102,6 +124,7 @@ public class RationalEqn {
        fout.close();
     }
 
+
     /* ************************************************************************
      * Set 02
      * ***********************************************************************/
@@ -120,7 +143,7 @@ public class RationalEqn {
 	    + "\\begin{document}\n"
 	    + "\\twocolumn [\n"
 	    + "    \\centerline {\\Large \\textbf{Algebra Drills}}\n"
-	    + "    \\centerline{\\textbf{Rational Equations II}}\n"
+	    + "    \\centerline{\\textbf{Rational Equations I}}\n"
 	    + "    \\vspace {0.5 in}\n"
 	    + "]\n");
 
@@ -145,70 +168,50 @@ public class RationalEqn {
            int g = rgen.nextInt(24) + 1; g = 12 - g; if (g == 0) g = 9; 
            int h = rgen.nextInt(24) + 1; h = 12 - h; if (h == 0) h = -8; 
 
-           int discriminator = a*d + b*c;
+           int discriminator = g*f - c*h;
 
            if (discriminator == 0) continue;
 
            k = k + 1;
   
-           // System.out.format("Values selected are %d, %d, %d, %d, %d, %d, %d, %d\n", a, b, c, d, e, f, g, h);
+           System.out.format("Values selected are %d, %d, %d, %d, %d, %d, %d, %d\n", a, b, c, d, e, f, g, h);
 
            // Note that we are not using d and e yet.
 
-           int firstCoeff = a*c;
-           int secondCoeff = b*d;
-           int thirdCoeff  = a*d + b*c;    // Discriminator
-
            fout.format("\\item\n"
        	       + "\\begin{displaymath}\n"
-	       + "\\frac{%dx}{%d(%dx - %d)} + \\frac{%d}{x(%dx - %d)} = \\frac{%d}{%dx - %d}\n"
+	       + "\\frac{%d}{x + %d} + \\frac{%d}{%d} = \\frac{%d}{%d}\n"
 	       + "\\end{displaymath}\n"
-	       + "\n", 
-                 firstCoeff, e, f, g, 
-                 secondCoeff, e*f, e*g,
-                 thirdCoeff, e*f, e*g);
+	       + "\n", a, b, c, f, g, h);
+        
 
-           // Now the solutions. Since we have a quadratic equation,
-           // there shall be two solutions.
+           // Now the solution.
 
-      
-           int xnumerOne = b;    // Numerator of the solution One.
-           int xdenomOne = a;     // Denominator of the solution One.
-           String signumOne = " ";
-           if (xnumerOne * xdenomOne < 0) signumOne = "-";
-           int gcf    = RationalEqn.GCF(xnumerOne, xdenomOne);
-           int fracxOne  = Math.abs(xnumerOne/gcf);
-           int fracyOne  = Math.abs(xdenomOne/gcf);
+           int xnumer = a*h*f - b*discriminator;    // Numerator of the solution.
+           int xdenom = discriminator;         // Denominator of the solution.
+           String signum = " ";
+           if (xnumer * xdenom < 0) signum = "-";
+           int gcf    = LinearEquations.GCF(xnumer, xdenom);
+           int fracx  = Math.abs(xnumer/gcf);
+           int fracy  = Math.abs(xdenom/gcf);
+           int wholepart = 0;
+           int fracpart = fracx;
 
-	   // int wholepartOne = 0;
-	   // int fracpartOne = fracxOne;
-	   // 
-	   // if (fracx > fracy) {          // Also get the mixed form.
-	   // wholepart = fracx / fracy;
-	   // fracpart  = fracx % fracy;
-	   // }
-
-           int xnumerTwo = d;    // Numerator of the solution Two.
-           int xdenomTwo = c;     // Denominator of the solution Two.
-           String signumTwo = " ";
-           if (xnumerTwo * xdenomTwo < 0) signumTwo = "-";
-           gcf    = RationalEqn.GCF(xnumerTwo, xdenomTwo);
-           int fracxTwo  = Math.abs(xnumerTwo/gcf);
-           int fracyTwo  = Math.abs(xdenomTwo/gcf);
+           if (fracx > fracy) {          // Also get the mixed form.
+               wholepart = fracx / fracy;
+               fracpart  = fracx % fracy;
+           }
 
            answerKey = answerKey + "\\item $x = "
-               + signumOne
+               + signum
                + "\\frac{" 
-               + fracxOne 
+               + fracx 
                + "}{"
-               + fracyOne
-               + "}; x = "
-               + signumTwo
-               + "\\frac{" 
-               + fracxTwo 
-               + "}{"
-               + fracyTwo
-               + "}$\n\n"; 
+               + fracy
+               + "} = " 
+               + signum
+               + wholepart 
+               + "\\frac{" + fracpart + "}{" + fracy + "}$\n\n";
        }
        
        fout.println("\\end{enumerate}\n");
@@ -235,5 +238,4 @@ public class RationalEqn {
 
        fout.close();
     }
-
 }

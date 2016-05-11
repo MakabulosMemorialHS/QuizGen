@@ -74,10 +74,12 @@ public class QuizGenFX extends Application {
         qSelect.getItems().addAll(
              "Linear Equations I",
              "Linear Equations II",
+             "Quadratic Functions I",
              "Quadratic Equations I", 
              "Quadratic Equations II", 
              "Rational Equations I", 
-             "Rational Equations II");
+             "Rational Equations II",
+             "Variations I");
       
         /* 
            This HBox shall hold the following buttons. 
@@ -118,8 +120,26 @@ public class QuizGenFX extends Application {
                          "Output written to temp.tex");
                     doneAlert.showAndWait();
                 }
+                else if (selected == "Rational Equations II") {
+                    RationalEqn.Set02();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Quadratic Functions I") {
+                    QuadraticFunctions.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
                 else if (selected == "Quadratic Equations I") {
                     QuadraticEqn.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Variations I") {
+                    Variations.Set01();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");
                     doneAlert.showAndWait();

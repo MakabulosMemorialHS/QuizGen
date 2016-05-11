@@ -165,14 +165,14 @@ public class LinearEquations {
 
            System.out.println("Creating problem number " + k);
 
-	   int a = rgen.nextInt(20) + 1; a = 10 - a; if (a == 0) a = 1;
-           int b = rgen.nextInt(20) + 1; b = 10 - b; if (b == 0 || Math.abs(b) == 1) b = 3; 
-           int c = rgen.nextInt(20) + 1; c = 10 - c; if (c == 0) c = 1; 
-           int d = rgen.nextInt(20) + 1; d = 10 - d; if (d == 0) d = 1; 
-           int e = rgen.nextInt(20) + 1; e = 10 - e; if (e == 0 || Math.abs(e) == 1) e = 5; 
-           int f = 1;     //  int f = rgen.nextInt(20) + 1; f = 10 - f; if (f == 0) f = 1; 
-           int g = rgen.nextInt(20) + 1; g = 10 - g; if (g == 0) g = 1; 
-           int h = 1;      //  int h = rgen.nextInt(20) + 1; h = 10 - h; if (h == 0) h = 1; 
+	   int a = rgen.nextInt(24) + 1; a = 12 - a; if (a == 0) a = 1;
+           int b = rgen.nextInt(24) + 1; b = 12 - b; if (b == 0 || Math.abs(b) == 1) b = 3; 
+           int c = rgen.nextInt(24) + 1; c = 12 - c; if (c == 0) c = -2; 
+           int d = rgen.nextInt(24) + 1; d = 12 - d; if (d == 0) d = -5; 
+           int e = rgen.nextInt(24) + 1; e = 12 - e; if (e == 0 || Math.abs(e) == 1) e = 5; 
+           int f = rgen.nextInt(24) + 1; f = 12 - f; if (f == 0) f = 6; 
+           int g = rgen.nextInt(24) + 1; g = 12 - g; if (g == 0) g = 9; 
+           int h = rgen.nextInt(24) + 1; h = 12 - h; if (h == 0) h = -8; 
 
            int discriminator = g*f - c*h;
 

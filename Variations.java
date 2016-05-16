@@ -33,9 +33,10 @@ public class Variations {
 
         PrintWriter fout = null;
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
+
         catch (FileNotFoundException e) {/* err handler here. */};
 
-	fout.println("\\documentclass[12pt,twocolumn]{article}\n"
+	fout.println("\\documentclass[12pt,twocolumn,legalpaper]{article}\n"
 	    + "\\usepackage{palatino}\n"
 	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
 	    + "\\advance\\textheight by 1 in\n"
@@ -45,9 +46,10 @@ public class Variations {
 	    + "    \\centerline {\\Large \\textbf{Algebra Drills}}\n"
 	    + "    \\centerline{\\textbf{Variation Problems I}}\n"
 	    + "    \\vspace {0.5 in}\n"
-	    + "]\n"
-            + "Given that $y$ varies directly with $x$, find (a) the constant of variation,\n"
-            + "(b) the equation that relates $x$ and $y$, (c) the value of $y$ given $x = \\alpha$\n\n");
+            + "Given $x,y$ find $\\kappa$, direct variation, $\\lambda$, inverse variation,\n"
+            + "$y_d = \\kappa \\alpha$ and $y_i = \\lambda/\\alpha$.\n\n"
+	    + "\\vspace {0.5 in}\n"
+	    + "]\n");
 
        // Now generate random problems and write it out.
 
@@ -56,47 +58,49 @@ public class Variations {
  
        fout.println("\\begin{enumerate}\n");
    
-       for (int k = 0; k < 20; ++k) {
+       for (int k = 0; k < 40; ++k) {
            System.out.println("Creating problem number " + k);
 
-	   int a = rgen.nextInt(50) + 1; a = 25 - a; if (a == 0) a = 5;
-           int b = rgen.nextInt(50) + 1; b = 25 - b; if (b == 0) b = 3; 
-           int c = rgen.nextInt(100) + 1; c = 50 - c; if (c == 0) c = 6; 
+	   int yval = rgen.nextInt(50) + 1; yval = 25 - yval; if (yval == 0) yval = 5;
+           int xval = rgen.nextInt(50) + 1; xval = 25 - xval; if (xval == 0) xval = 3; 
+           int alpha = rgen.nextInt(100) + 1; alpha = 50 - alpha; if (alpha == 0) alpha = 6; 
 
 	   fout.format("\\item $y = %d$ when $x = %d$, $\\alpha = %d$\n",
-                 a, b, c);
+                 yval, xval, alpha);
 
            // Now the solution.
     
-           // The constant of variation is k
+           // The constant of direct variation is kappa (assume Fraction)
+           // The constant of indirect variation is lambda (assume integer)
 
-           int knumer = a;    // Numerator of k
-           int kdenom = b;    // Denominator of k
-           int gcf    = Variations.GCF(knumer, kdenom);
-           String signum = " ";
-           if (knumer * kdenom < 0) signum = "-";
-           int kfracx  = Math.abs(knumer/gcf);
-           int kfracy  = Math.abs(kdenom/gcf);
+           Fraction kappa = new Fraction(yval, xval);
+           int lambda = yval*xval;
+           Fraction Yd = new Fraction(kappa.Numerator() * alpha, kappa.Denominator());
+           Fraction Yi = new Fraction(lambda, alpha);
+    
+           String signum = "";
+           if (kappa.Sign() < 0) signum = "-";
 
-           // Value of y when x = alpha
-           int alphanumer = c * knumer;
-           int alphadenom = kdenom;
-           gcf    = Variations.GCF(alphanumer, alphadenom);
-           String alphasignum = " ";
-           if (alphanumer * alphadenom < 0) alphasignum = "-";
-           int alphafracx  = Math.abs(alphanumer/gcf);
-           int alphafracy  = Math.abs(alphadenom/gcf);
-
-
+           String yiSignum = "";
+           if (Yi.Sign() < 0) yiSignum = "-";
+ 
            answerKey = answerKey + 
-               "\\item $k = "
+               "\\item $\\kappa = "
                + signum
-               + kfracx 
+               + kappa.Numerator()
                + "/"
-               + kfracy + "$"
-               + ";  $y(\\alpha) = " 
-               + alphasignum
-               + alphafracx + "/" + alphafracy + "$\n\n";
+               + kappa.Denominator() + "$"
+               + ";  $\\lambda = " 
+               + lambda + "$;\n"
+               + "$y_d = "
+               + Yd.SignumString()
+               + Yd.Numerator() + "/"
+               + Yd.Denominator() + "$;\n"
+               + "$y_i = "
+               + Yi.SignumString() + Yi.Numerator()
+               + "/"
+               + Yi.Denominator()
+               + "$\n\n";
        }
        
        fout.println("\\end{enumerate}\n");
@@ -114,7 +118,7 @@ public class Variations {
 
        fout.println(
           "\\begin{enumerate}\n"
-          + "\\setlength\\itemsep{0.25in}\n"
+          + "%%%% \\setlength\\itemsep{0.25in}\n"
           + answerKey
           + "\\end{enumerate}\n"
           + "\\end{document}\n");

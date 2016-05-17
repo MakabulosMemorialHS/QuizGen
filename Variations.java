@@ -139,7 +139,7 @@ public class Variations {
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
         catch (FileNotFoundException e) {/* err handler here. */};
 
-	fout.println("\\documentclass[12pt,twocolumn]{article}\n"
+	fout.println("\\documentclass[12pt,twocolumn,legalpaper]{article}\n"
 	    + "\\usepackage{palatino}\n"
 	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
 	    + "\\advance\\textheight by 1 in\n"
@@ -147,75 +147,75 @@ public class Variations {
 	    + "\\begin{document}\n"
 	    + "\\twocolumn [\n"
 	    + "    \\centerline {\\Large \\textbf{Algebra Drills}}\n"
-	    + "    \\centerline{\\textbf{Rational Equations I}}\n"
+	    + "    \\centerline{\\textbf{Variation Problems II}}\n"
 	    + "    \\vspace {0.5 in}\n"
 	    + "]\n");
-
-       // Now generate ten random problems and write it out.
 
        Random rgen = new Random();
        String answerKey = "";
  
        fout.println("\\begin{enumerate}\n");
    
-       int k = 0;
-       while (k < 24) {
+       int itemcount  = 0;
+       while (itemcount < 18) {
 
-           System.out.println("Creating problem number " + k);
+           System.out.println("Creating problem number " + itemcount);
 
-	   int a = rgen.nextInt(24) + 1; a = 12 - a; if (a == 0) a = 1;
-           int b = rgen.nextInt(24) + 1; b = 12 - b; if (b == 0 || Math.abs(b) == 1) b = 3; 
-           int c = rgen.nextInt(24) + 1; c = 12 - c; if (c == 0) c = -2; 
-           int d = rgen.nextInt(24) + 1; d = 12 - d; if (d == 0) d = -5; 
-           int e = rgen.nextInt(24) + 1; e = 12 - e; if (e == 0 || Math.abs(e) == 1) e = 5; 
-           int f = rgen.nextInt(24) + 1; f = 12 - f; if (f == 0) f = 6; 
-           int g = rgen.nextInt(24) + 1; g = 12 - g; if (g == 0) g = 9; 
-           int h = rgen.nextInt(24) + 1; h = 12 - h; if (h == 0) h = -8; 
+           // Generate a random integer and create a direct variation problem if integer is even.
+	   int a = rgen.nextInt(100) + 1;
+           int b = rgen.nextInt(100) + 1; b = 50 - b; if (b == 0) b = 3; 
+           int c = rgen.nextInt(50) + 1; c = 25 - c; if (c == 0) c = 2; 
 
-           int discriminator = g*f - c*h;
+           if (a % 2 == 0) {
+               // Generate a direct variation problem.
+               Fraction kappa = new Fraction(b, c);
 
-           if (discriminator == 0) continue;
+               fout.format("\\item \\begin{tabular}[c]{cc}\n"
+                         + "$x$  & $y$\\\\"
+                         + "\\hline\n");
 
-           k = k + 1;
-  
-           System.out.format("Values selected are %d, %d, %d, %d, %d, %d, %d, %d\n", a, b, c, d, e, f, g, h);
+               for (int sample = 0; sample < 3; ++sample) {
+                   int d = rgen.nextInt(100) + 1; d = 50 - d; if (d == 0) d = 12;
+                   Fraction spoint = new Fraction(d, 1);
+                   spoint = spoint.multiplyBy(kappa);
+                   fout.format("%d  &  %s\\\\\n", d, spoint.toString());
+               }
+	       int d = rgen.nextInt(100) + 1; d = 50 - d; if (d == 0) d = 12;
+	       Fraction spoint = new Fraction(d, 1);
+	       spoint = spoint.multiplyBy(kappa);
+	       fout.format("%d  &  ??\\\\\n", d);
+               
+               fout.format("\\hline\n"
+                         + "\\end{tabular}\n");
+               answerKey = answerKey 
+                         + String.format("\\item $y = %s$ (linear)\n", spoint.toString());
+           }
+           else {
+               // Generate an inverse variation problem
+               Fraction lambda = new Fraction(b, c);
+               fout.format("\\item \\begin{tabular}[c]{cc}\n"
+                         + "$x$  & $y$\\\\"
+                         + "\\hline\n");
 
-           // Note that we are not using d and e yet.
+               for (int sample = 0; sample < 3; ++sample) {
+                   int d = rgen.nextInt(50) + 1; d = 25 - d; if (d == 0) d = 12;
+                   Fraction spoint = new Fraction(1,d);
+                   spoint = spoint.multiplyBy(lambda);
+                   fout.format("%d  &  %s\\\\\n", d, spoint.toString());
+               }
+	       int d = rgen.nextInt(60) + 1; d = 30 - d; if (d == 0) c = 12;
+	       Fraction spoint = new Fraction(1,d);
+	       spoint = spoint.multiplyBy(lambda);
+	       fout.format("%d  &  ??\\\\\n", d);
+               
+               fout.format("\\hline\n"
+                         + "\\end{tabular}\n");
+               answerKey = answerKey 
+                         + String.format("\\item $y = %s$ (inverse)\n", spoint.toString());
 
-           fout.format("\\item\n"
-       	       + "\\begin{displaymath}\n"
-	       + "\\frac{%d}{x + %d} + \\frac{%d}{%d} = \\frac{%d}{%d}\n"
-	       + "\\end{displaymath}\n"
-	       + "\n", a, b, c, f, g, h);
-        
-
-           // Now the solution.
-
-           int xnumer = a*h*f - b*discriminator;    // Numerator of the solution.
-           int xdenom = discriminator;         // Denominator of the solution.
-           String signum = " ";
-           if (xnumer * xdenom < 0) signum = "-";
-           int gcf    = LinearEquations.GCF(xnumer, xdenom);
-           int fracx  = Math.abs(xnumer/gcf);
-           int fracy  = Math.abs(xdenom/gcf);
-           int wholepart = 0;
-           int fracpart = fracx;
-
-           if (fracx > fracy) {          // Also get the mixed form.
-               wholepart = fracx / fracy;
-               fracpart  = fracx % fracy;
            }
 
-           answerKey = answerKey + "\\item $x = "
-               + signum
-               + "\\frac{" 
-               + fracx 
-               + "}{"
-               + fracy
-               + "} = " 
-               + signum
-               + wholepart 
-               + "\\frac{" + fracpart + "}{" + fracy + "}$\n\n";
+           itemcount = itemcount + 1;
        }
        
        fout.println("\\end{enumerate}\n");

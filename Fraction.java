@@ -56,5 +56,26 @@ public class Fraction {
         if (theSign < 0) return "-";
         else return "";
     }
+
+    public String toString() {
+        String retval = String.format("%s %d/%d", SignumString(), numerator, denominator);
+        return retval;
+    }
+
+    public Fraction multiplyBy(Fraction mult) {
+        int temp_numer  = mult.Numerator() * numerator;                 // Assert: temp_numer >= 0
+        int temp_denom  = Math.abs(mult.Denominator()) * denominator;   // Assert: temp_denom > 0
+        int temp_sign   = mult.Sign() * theSign;                        // Assert temp_sign == 1, -1;
+        // Put some error catching here.
+
+        int gcf = Fraction.GCF(temp_numer, temp_denom);
+        theSign = temp_sign;
+
+        numerator     = Math.abs(temp_numer/gcf);
+        denominator   = Math.abs(temp_denom/gcf);
+     
+        return this;
+    }
+
 }
 

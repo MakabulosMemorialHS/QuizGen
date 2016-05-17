@@ -79,7 +79,8 @@ public class QuizGenFX extends Application {
              "Quadratic Equations II", 
              "Rational Equations I", 
              "Rational Equations II",
-             "Variations I");
+             "Variations I",
+             "Variations II");
       
         /* 
            This HBox shall hold the following buttons. 
@@ -140,6 +141,12 @@ public class QuizGenFX extends Application {
                 }
                 else if (selected == "Variations I") {
                     Variations.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Variations II") {
+                    Variations.Set02();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");
                     doneAlert.showAndWait();

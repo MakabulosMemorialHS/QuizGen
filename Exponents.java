@@ -1,5 +1,5 @@
 /* **************************************************
- * Variations.java
+ * Exponents.java
  *
  * Simple Variatonal Problem Drills.
  *
@@ -10,22 +10,7 @@ import java.lang.*;
 import java.util.*;
 import java.io.*;     // for PrintWriter and FileOutputStream
 
-public class Variations {
-
-    public static int GCF(int a, int b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-
-        while (a != b) {
-            if (a > b) {
-                a = a - b;
-            }
-            else {
-                b = b - a;
-            }
-        }
-        return a;
-    }
+public class Exponents {
 
     public static void Set01() {
 
@@ -44,11 +29,8 @@ public class Variations {
 	    + "\\begin{document}\n"
 	    + "\\twocolumn [\n"
 	    + "    \\centerline {\\Large \\textbf{Algebra Drills}}\n"
-	    + "    \\centerline{\\textbf{Variation Problems I}}\n"
+	    + "    \\centerline{\\textbf{Exponents I}}\n"
 	    + "    \\vspace {0.5 in}\n"
-            + "Given $x,y$ find $\\kappa$, direct variation, $\\lambda$, inverse variation,\n"
-            + "$y_d = \\kappa \\alpha$ and $y_i = \\lambda/\\alpha$.\n\n"
-	    + "\\vspace {0.5 in}\n"
 	    + "]\n");
 
        // Now generate random problems and write it out.
@@ -58,49 +40,55 @@ public class Variations {
  
        fout.println("\\begin{enumerate}\n");
    
-       for (int k = 0; k < 40; ++k) {
+       for (int k = 0; k < 60; ++k) {
            System.out.println("Creating problem number " + k);
 
-	   int yval = rgen.nextInt(50) + 1; yval = 25 - yval; if (yval == 0) yval = 5;
-           int xval = rgen.nextInt(50) + 1; xval = 25 - xval; if (xval == 0) xval = 3; 
-           int alpha = rgen.nextInt(100) + 1; alpha = 50 - alpha; if (alpha == 0) alpha = 6; 
+           int pSelect = rgen.nextInt(100) + 1;   // This will select the kind of problem
 
-	   fout.format("\\item $y = %d$ when $x = %d$, $\\alpha = %d$\n",
-                 yval, xval, alpha);
-
-           // Now the solution.
-    
-           // The constant of direct variation is kappa (assume Fraction)
-           // The constant of indirect variation is lambda (assume integer)
-
-           Fraction kappa = new Fraction(yval, xval);
-           int lambda = yval*xval;
-           Fraction Yd = new Fraction(kappa.Numerator() * alpha, kappa.Denominator());
-           Fraction Yi = new Fraction(lambda, alpha);
-    
-           String signum = "";
-           if (kappa.Sign() < 0) signum = "-";
-
-           String yiSignum = "";
-           if (Yi.Sign() < 0) yiSignum = "-";
+           int xExp = rgen.nextInt(30) + 1; xExp = 15 - xExp;
+	   int yExp = rgen.nextInt(30) + 1; yExp = 15 - yExp;  
+	   int zExp = rgen.nextInt(30) + 1; zExp = 15 - zExp; if (zExp == 0) zExp = 2;
+           int xExpPrime = rgen.nextInt(30) + 1; xExpPrime = 15 - xExpPrime; 
+	   int yExpPrime = rgen.nextInt(30) + 1; yExpPrime = 15 - yExpPrime; 
+	   int zExpPrime = rgen.nextInt(30) + 1; zExpPrime = 15 - zExpPrime;  if (zExpPrime == 0) zExpPrime = 3;
  
-           answerKey = answerKey + 
-               "\\item $\\kappa = "
-               + signum
-               + kappa.Numerator()
-               + "/"
-               + kappa.Denominator() + "$"
-               + ";  $\\lambda = " 
-               + lambda + "$;\n"
-               + "$y_d = "
-               + Yd.SignumString()
-               + Yd.Numerator() + "/"
-               + Yd.Denominator() + "$;\n"
-               + "$y_i = "
-               + Yi.SignumString() + Yi.Numerator()
-               + "/"
-               + Yi.Denominator()
-               + "$\n\n";
+
+           switch (pSelect % 4) {
+               case 0:
+		   fout.format("\\item $a^{%d}b^{%d}(a^{%d}b^{%d})^{%d}c^{%d}$\n",
+			 xExp, yExp, xExpPrime, yExpPrime, zExpPrime, zExp);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}c^{%d}$\n", 
+                            xExp + xExpPrime * zExpPrime, 
+                            yExp + yExpPrime * zExpPrime, 
+                            zExp); 
+                   break;
+               case 1:
+		   fout.format("\\item $(a^{%d}b^{%d}c^{%d})^{%d}$\n",
+			 xExp, yExp, zExp, xExpPrime);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}c^{%d}$\n", 
+                            xExp * xExpPrime, 
+                            yExp * xExpPrime, 
+                            zExp * xExpPrime); 
+                   break;
+               case 2:
+		   fout.format("\\item $(a^{%d}b^{%d})^{%d}(a^{%d}b^{%d})^{%d}$\n",
+			 xExp, yExp, zExp, xExpPrime, yExpPrime, zExpPrime);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}$\n", 
+                            xExp*zExp + xExpPrime * zExpPrime, 
+                            yExp*zExp + yExpPrime * zExpPrime); 
+                   break;
+               case 3:
+		   fout.format("\\item $a^{%d}b^{%d} \\cdot a^{%d}b^{%d}$\n",
+			 xExp, yExp, xExpPrime, yExpPrime);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}$\n", 
+                            xExp + xExpPrime, yExp + yExpPrime);
+                   break;
+           }
+
        }
        
        fout.println("\\end{enumerate}\n");

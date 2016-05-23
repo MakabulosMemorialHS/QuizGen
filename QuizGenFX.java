@@ -72,6 +72,8 @@ public class QuizGenFX extends Application {
         root.getChildren().add(hChoices);
 
         qSelect.getItems().addAll(
+             "Exponents I",
+             "Exponents II",
              "Linear Equations I",
              "Linear Equations II",
              "Quadratic Functions I",
@@ -103,7 +105,19 @@ public class QuizGenFX extends Application {
         OKButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 String selected = qSelect.getValue();
-                if (selected == "Linear Equations I") {
+                if (selected == "Exponents I") {
+                    Exponents.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Exponents II") {
+                    Exponents.Set02();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Linear Equations I") {
                     LinearEquations.Set01();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");

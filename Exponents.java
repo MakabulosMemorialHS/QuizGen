@@ -123,8 +123,11 @@ public class Exponents {
 
     public static void Set02() {
 
+        // Open the target file and write out the TeX header.
+
         PrintWriter fout = null;
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
+
         catch (FileNotFoundException e) {/* err handler here. */};
 
 	fout.println("\\documentclass[12pt,twocolumn,legalpaper]{article}\n"
@@ -135,75 +138,66 @@ public class Exponents {
 	    + "\\begin{document}\n"
 	    + "\\twocolumn [\n"
 	    + "    \\centerline {\\Large \\textbf{Algebra Drills}}\n"
-	    + "    \\centerline{\\textbf{Variation Problems II}}\n"
+	    + "    \\centerline{\\textbf{Exponents I}}\n"
 	    + "    \\vspace {0.5 in}\n"
 	    + "]\n");
+
+       // Now generate random problems and write it out.
 
        Random rgen = new Random();
        String answerKey = "";
  
        fout.println("\\begin{enumerate}\n");
    
-       int itemcount  = 0;
-       while (itemcount < 18) {
+       for (int k = 0; k < 55; ++k) {
+           System.out.println("Creating problem number " + k);
 
-           System.out.println("Creating problem number " + itemcount);
+           int pSelect = rgen.nextInt(100) + 1;   // This will select the kind of problem
 
-           // Generate a random integer and create a direct variation problem if integer is even.
-	   int a = rgen.nextInt(100) + 1;
-           int b = rgen.nextInt(100) + 1; b = 50 - b; if (b == 0) b = 3; 
-           int c = rgen.nextInt(50) + 1; c = 25 - c; if (c == 0) c = 2; 
+           int xExp = rgen.nextInt(30) + 1; xExp = 15 - xExp;
+	   int yExp = rgen.nextInt(30) + 1; yExp = 15 - yExp;  
+	   int zExp = rgen.nextInt(30) + 1; zExp = 15 - zExp; if (zExp == 0) zExp = 2;
+       	   int wExp = rgen.nextInt(30) + 1; wExp = 15 - wExp; if (wExp == 0) wExp = 3;
+           int xExpPrime = rgen.nextInt(30) + 1; xExpPrime = 15 - xExpPrime; 
+	   int yExpPrime = rgen.nextInt(30) + 1; yExpPrime = 15 - yExpPrime; 
+	   int zExpPrime = rgen.nextInt(30) + 1; zExpPrime = 15 - zExpPrime;  if (zExpPrime == 0) zExpPrime = 3;
+ 
 
-           if (a % 2 == 0) {
-               // Generate a direct variation problem.
-               Fraction kappa = new Fraction(b, c);
-
-               fout.format("\\item \\begin{tabular}[c]{cc}\n"
-                         + "$x$  & $y$\\\\"
-                         + "\\hline\n");
-
-               for (int sample = 0; sample < 3; ++sample) {
-                   int d = rgen.nextInt(100) + 1; d = 50 - d; if (d == 0) d = 12;
-                   Fraction spoint = new Fraction(d, 1);
-                   spoint = spoint.multiplyBy(kappa);
-                   fout.format("%d  &  %s\\\\\n", d, spoint.toString());
-               }
-	       int d = rgen.nextInt(100) + 1; d = 50 - d; if (d == 0) d = 12;
-	       Fraction spoint = new Fraction(d, 1);
-	       spoint = spoint.multiplyBy(kappa);
-	       fout.format("%d  &  ??\\\\\n", d);
-               
-               fout.format("\\hline\n"
-                         + "\\end{tabular}\n");
-               answerKey = answerKey 
-                         + String.format("\\item $y = %s$ (direct)\n", spoint.toString());
-           }
-           else {
-               // Generate an inverse variation problem
-               Fraction lambda = new Fraction(b, c);
-               fout.format("\\item \\begin{tabular}[c]{cc}\n"
-                         + "$x$  & $y$\\\\"
-                         + "\\hline\n");
-
-               for (int sample = 0; sample < 3; ++sample) {
-                   int d = rgen.nextInt(50) + 1; d = 25 - d; if (d == 0) d = 12;
-                   Fraction spoint = new Fraction(1,d);
-                   spoint = spoint.multiplyBy(lambda);
-                   fout.format("%d  &  %s\\\\\n", d, spoint.toString());
-               }
-	       int d = rgen.nextInt(60) + 1; d = 30 - d; if (d == 0) d = 12;
-	       Fraction spoint = new Fraction(1,d);
-	       spoint = spoint.multiplyBy(lambda);
-	       fout.format("%d  &  ??\\\\\n", d);
-               
-               fout.format("\\hline\n"
-                         + "\\end{tabular}\n");
-               answerKey = answerKey 
-                         + String.format("\\item $y = %s$ (inverse)\n", spoint.toString());
-
+           switch (pSelect % 4) {
+               case 0:
+		   fout.format("\\item $\\frac{a^{%d}b^{%d}}{a^{%d}b^{%d}}$\n",
+			 xExp, yExp, xExpPrime, yExpPrime);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}$\n", 
+                            xExp - xExpPrime, 
+                            yExp - yExpPrime); 
+                   break;
+               case 1:
+		   fout.format("\\item $\\frac{(a^{%d}b^{%d})^{%d}}{a^{%d}b^{%d}}$\n",
+			 xExp, yExp, zExp, xExpPrime, yExpPrime);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}$\n", 
+                            xExp*zExp - xExpPrime, 
+                            yExp*zExp - yExpPrime); 
+                   break;
+               case 2:
+		   fout.format("\\item $\\frac{a^{%d}b^{%d}}{(a^{%d}b^{%d})^{%d}}$\n",
+			 xExp, yExp, xExpPrime, yExpPrime, zExp);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}$\n", 
+                            xExp - xExpPrime * zExp, 
+                            yExp - yExpPrime * zExp); 
+                   break;
+               case 3:
+		   fout.format("\\item $\\frac{(a^{%d}b^{%d})^{%d}}{a^{%d}b^{%d}}$\n",
+			 xExp, yExp, zExp, xExpPrime, yExpPrime, zExpPrime);
+		   answerKey = answerKey + 
+		       String.format("\\item $a^{%d}b^{%d}$\n", 
+                            xExp*zExp - xExpPrime*zExpPrime, 
+                            yExp*zExp - yExpPrime*zExpPrime); 
+                   break;
            }
 
-           itemcount = itemcount + 1;
        }
        
        fout.println("\\end{enumerate}\n");
@@ -221,7 +215,7 @@ public class Exponents {
 
        fout.println(
           "\\begin{enumerate}\n"
-          + "\\setlength\\itemsep{0.25in}\n"
+          + "%%%% \\setlength\\itemsep{0.25in}\n"
           + answerKey
           + "\\end{enumerate}\n"
           + "\\end{document}\n");
@@ -229,5 +223,8 @@ public class Exponents {
        // And close the output file.
 
        fout.close();
-    }
+
+    }  // Set 02.
+
+
 }

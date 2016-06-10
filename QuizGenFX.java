@@ -81,6 +81,7 @@ public class QuizGenFX extends Application {
              "Quadratic Equations II", 
              "Rational Equations I", 
              "Rational Equations II",
+             "Sequences I",
              "Variations I",
              "Variations II");
       
@@ -137,6 +138,12 @@ public class QuizGenFX extends Application {
                 }
                 else if (selected == "Rational Equations II") {
                     RationalEqn.Set02();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Sequences I") {
+                    Sequences.Set01();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");
                     doneAlert.showAndWait();

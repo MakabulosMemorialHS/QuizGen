@@ -177,8 +177,8 @@ public class Exponents {
 			 xExp, yExp, zExp, xExpPrime, yExpPrime);
 		   answerKey = answerKey + 
 		       String.format("\\item $a^{%d}b^{%d}$\n", 
-                            xExp*zExp - xExpPrime, 
-                            yExp*zExp - yExpPrime); 
+                            (xExp*zExp) - xExpPrime, 
+                            (yExp*zExp) - yExpPrime); 
                    break;
                case 2:
 		   fout.format("\\item $\\frac{a^{%d}b^{%d}}{(a^{%d}b^{%d})^{%d}}$\n",
@@ -189,7 +189,7 @@ public class Exponents {
                             yExp - yExpPrime * zExp); 
                    break;
                case 3:
-		   fout.format("\\item $\\frac{(a^{%d}b^{%d})^{%d}}{a^{%d}b^{%d}}$\n",
+		   fout.format("\\item $\\frac{(a^{%d}b^{%d})^{%d}}{(a^{%d}b^{%d})^{%d}}$\n",
 			 xExp, yExp, zExp, xExpPrime, yExpPrime, zExpPrime);
 		   answerKey = answerKey + 
 		       String.format("\\item $a^{%d}b^{%d}$\n", 

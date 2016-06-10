@@ -35,7 +35,7 @@ public class LinearEquations {
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
         catch (FileNotFoundException e) {/* err handler here. */};
 
-	fout.println("\\documentclass[12pt,twocolumn]{article}\n"
+	fout.println("\\documentclass[12pt,legalpaper,twocolumn]{article}\n"
 	    + "\\usepackage{palatino}\n"
 	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
 	    + "\\advance\\textheight by 1 in\n"
@@ -54,7 +54,7 @@ public class LinearEquations {
  
        fout.println("\\begin{enumerate}\n");
    
-       for (int k = 0; k < 20; ++k) {
+       for (int k = 0; k < 34; ++k) {
            System.out.println("Creating problem number " + k);
 
 	   int a = rgen.nextInt(20) + 1; a = 10 - a; if (a == 0) a = 1;
@@ -141,7 +141,7 @@ public class LinearEquations {
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
         catch (FileNotFoundException e) {/* err handler here. */};
 
-	fout.println("\\documentclass[12pt,twocolumn]{article}\n"
+	fout.println("\\documentclass[12pt,legalpaper,twocolumn]{article}\n"
 	    + "\\usepackage{palatino}\n"
 	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
 	    + "\\advance\\textheight by 1 in\n"
@@ -161,7 +161,7 @@ public class LinearEquations {
        fout.println("\\begin{enumerate}\n");
    
        int k = 0;
-       while (k < 24) {
+       while (k < 32) {
 
            System.out.println("Creating problem number " + k);
 

@@ -13,25 +13,6 @@ import java.io.*;     // for PrintWriter and FileOutputStream
 
 public class QuadraticEqn {
 
-    public static int GCF(int a, int b) {
-        /* a and b should both be positive integers, otherwise
-           this function won't work. */
-
-        a = Math.abs(a);
-        b = Math.abs(b);
-
-        while (a != b) {
-            if (a > b) {
-                a = a - b;
-            }
-            else {
-                b = b - a;
-            }
-        }
-        return a;
-    }
-
-
     /* Problem Set 1 of quadratic equations involve quadratic equations with
        rational roots. */
 
@@ -43,7 +24,7 @@ public class QuadraticEqn {
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
         catch (FileNotFoundException e) {/* err handler here. */};
 
-	fout.println("\\documentclass[12pt,twocolumn]{article}\n"
+	fout.println("\\documentclass[12pt,legalpaper,twocolumn]{article}\n"
 	    + "\\usepackage{palatino}\n"
 	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
 	    + "\\advance\\textheight by 1 in\n"
@@ -63,7 +44,7 @@ public class QuadraticEqn {
  
        fout.println("\\begin{enumerate}\n");
    
-       for (int k = 0; k < 20; ++k) {
+       for (int k = 0; k < 62; ++k) {
            /* We shall create quadratic equations with the form (ax + b)(cx + d) = 0.
               This expands to acx^2 + (bc + ad)x + bd = 0 */
      
@@ -82,9 +63,9 @@ public class QuadraticEqn {
               if it does, by converting it to a 1. */
 
            if (a == 0) a = 1;
-           if (b == 0) b = 1;
-           if (c == 0) c = 1;
-           if (d == 0) d = 1;
+           if (b == 0) b = 2;
+           if (c == 0) c = 3;
+           if (d == 0) d = 4;
  
            /* ASSERT: None of a, b, c, d is zero. */
            /* Given the above values, the following would be the coefficients. */
@@ -107,65 +88,29 @@ public class QuadraticEqn {
            /* ASSERT: signB and signC are not empty. */
 
 	   fout.println("\\item\n"
-	       + "\\begin{displaymath}\n"
+	       + "$"
 	       + A + "x^2" 
                + signB
                + Math.abs(B) + "x"
                + signC
                + Math.abs(C)
                + " = 0\n"
-	       + "\\end{displaymath}\n"
+	       + "$\n"
 	       + "\n");
 
            /* Now for the solutions. There shall be two solutions for each quadratic
-              equation. Naturally. */
+              equation. The two solutions shall be called
+              X1 and X2. */
 
-          /* First solution */
+           Fraction X1 = new Fraction(-b,a);
+           Fraction X2 = new Fraction(-d,c);
 
-           int xnumer = Math.abs(b);         // Numerator of the solution.
-           int xdenom = Math.abs(a);         // Denominator of the solution.
-           int gcf    = QuadraticEqn.GCF(xnumer, xdenom);
-      
-           /* Determine the sign of this solution */
-           if (-1 * a * b > 0) {
-	       answerKey = answerKey + "\\item $x = \\frac{" 
-		   + xnumer/gcf 
-		   + "}{"
-		   + xdenom/gcf
-		   + "}$, ";
-           }
-           else {
-	       answerKey = answerKey + "\\item $x = -\\frac{" 
-		   + xnumer/gcf 
-		   + "}{"
-		   + xdenom/gcf
-		   + "}$, ";
-          }
-
-          /* Second solution */
-
-           xnumer = Math.abs(d);         // Numerator of the solution.
-           xdenom = Math.abs(c);         // Denominator of the solution.
-           gcf    = QuadraticEqn.GCF(xnumer, xdenom);
-
-           /* Choose the form of the solution depending on the sign. */
-
-           if (-1 * a * b > 0) {
-	       answerKey = answerKey + "$x = \\frac{" 
-		   + xnumer/gcf 
-		   + "}{"
-		   + xdenom/gcf
-		   + "}$\n\n";
-           }
-           else {
-	       answerKey = answerKey + "$x = -\\frac{" 
-		   + xnumer/gcf 
-		   + "}{"
-		   + xdenom/gcf
-		   + "}$\n\n";
-          }
+	  answerKey = answerKey 
+              + String.format("\\item $x = %s; x = %s$\n",
+                X1.toString(), X2.toString());
        }
-       
+
+ 
        // Close the enumerate environment of the problem set
 
        fout.println("\\end{enumerate}\n");
@@ -183,7 +128,7 @@ public class QuadraticEqn {
 
        fout.println(
           "\\begin{enumerate}\n"
-          + "\\setlength\\itemsep{0.25in}\n"
+          + "%% \\setlength\\itemsep{0.25in}\n"
           + answerKey
           + "\\end{enumerate}\n"
           + "\\end{document}\n");

@@ -62,6 +62,14 @@ public class Fraction {
         return retval;
     }
 
+    public String toMixedString() {
+         int whole_part = numerator / denominator;
+         int fractional_part = numerator % denominator;
+         String retval = String.format("%s(%d + %d/%d)",
+              SignumString(), whole_part, fractional_part, denominator);
+         return retval;
+    }
+
     public Fraction multiplyBy(Fraction mult) {
         int temp_numer  = mult.Numerator() * numerator;                 // Assert: temp_numer >= 0
         int temp_denom  = Math.abs(mult.Denominator()) * denominator;   // Assert: temp_denom > 0

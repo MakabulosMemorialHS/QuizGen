@@ -12,21 +12,6 @@ import java.io.*;     // for PrintWriter and FileOutputStream
 
 public class RationalEqn {
 
-    public static int GCF(int a, int b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-
-        while (a != b) {
-            if (a > b) {
-                a = a - b;
-            }
-            else {
-                b = b - a;
-            }
-        }
-        return a;
-    }
-
     public static void Set01() {
 
         // Open the target file and write out the TeX header.
@@ -35,7 +20,7 @@ public class RationalEqn {
         try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
         catch (FileNotFoundException e) {/* err handler here. */};
 
-	fout.println("\\documentclass[12pt,twocolumn]{article}\n"
+	fout.println("\\documentclass[12pt,legalpaper,twocolumn]{article}\n"
 	    + "\\usepackage{palatino}\n"
 	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
 	    + "\\advance\\textheight by 1 in\n"
@@ -54,27 +39,25 @@ public class RationalEqn {
  
        fout.println("\\begin{enumerate}\n");
    
-       for (int k = 0; k < 20; ++k) {
-           int a = rgen.nextInt(51) + 1;
-           int b = rgen.nextInt(20) + 1;
-           int c = rgen.nextInt(12) + 1;
+       for (int k = 0; k < 34; ++k) {
+           int a = rgen.nextInt(50); a = 25 - a; if (a == 0) a = 5;
+           int b = rgen.nextInt(50); b = 25 - b; if (b == 0) b = 6; 
+           int c = rgen.nextInt(50); c = 25 - c; if (c == 0) c = 12; 
+           int d = rgen.nextInt(50); d = 25 - d; if (d == 0) d = 16; 
 
-	   fout.println("\\item\n"
+	   fout.format("\\item\n"
 	       + "\\begin{displaymath}\n"
-	       + "\\frac{1}{x} + \\frac{" + a + "}{" + b + "x} = " + c + "\n"
+               + "\\frac{%d}{x} + \\frac{%d}{%d x} = %d\n"
 	       + "\\end{displaymath}\n"
-	       + "\n");
+	       + "\n", a, b, c, d);
 
            // Now the solution.
 
-           int xnumer = a + b;       // Numerator of the solution.
-           int xdenom = b*c;         // Denominator of the solution.
-           int gcf    = RationalEqn.GCF(xnumer, xdenom);
-           answerKey = answerKey + "\\item $x = \\frac{" 
-               + xnumer/gcf 
-               + "}{"
-               + xdenom/gcf
-               + "}$\n\n";
+           Fraction X1 = new Fraction(a*c + b, c*d);
+
+           answerKey = answerKey 
+              + String.format("\\item $x = %s = %s$\n", 
+                   X1.toString(), X1.toMixedString());
        }
        
        fout.println("\\end{enumerate}\n");
@@ -171,44 +154,12 @@ public class RationalEqn {
            // Now the solutions. Since we have a quadratic equation,
            // there shall be two solutions.
 
-      
-           int xnumerOne = b;    // Numerator of the solution One.
-           int xdenomOne = a;     // Denominator of the solution One.
-           String signumOne = " ";
-           if (xnumerOne * xdenomOne < 0) signumOne = "-";
-           int gcf    = RationalEqn.GCF(xnumerOne, xdenomOne);
-           int fracxOne  = Math.abs(xnumerOne/gcf);
-           int fracyOne  = Math.abs(xdenomOne/gcf);
+           Fraction X1 = new Fraction(b, a);
+           Fraction X2 = new Fraction(d, c);
 
-	   // int wholepartOne = 0;
-	   // int fracpartOne = fracxOne;
-	   // 
-	   // if (fracx > fracy) {          // Also get the mixed form.
-	   // wholepart = fracx / fracy;
-	   // fracpart  = fracx % fracy;
-	   // }
-
-           int xnumerTwo = d;    // Numerator of the solution Two.
-           int xdenomTwo = c;     // Denominator of the solution Two.
-           String signumTwo = " ";
-           if (xnumerTwo * xdenomTwo < 0) signumTwo = "-";
-           gcf    = RationalEqn.GCF(xnumerTwo, xdenomTwo);
-           int fracxTwo  = Math.abs(xnumerTwo/gcf);
-           int fracyTwo  = Math.abs(xdenomTwo/gcf);
-
-           answerKey = answerKey + "\\item $x = "
-               + signumOne
-               + "\\frac{" 
-               + fracxOne 
-               + "}{"
-               + fracyOne
-               + "}; x = "
-               + signumTwo
-               + "\\frac{" 
-               + fracxTwo 
-               + "}{"
-               + fracyTwo
-               + "}$\n\n"; 
+           answerKey = answerKey 
+               + String.format("\\item $x = %s; x = %s$\n",
+                   X1.toMixedString(), X2.toMixedString());
        }
        
        fout.println("\\end{enumerate}\n");

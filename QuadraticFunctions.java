@@ -217,4 +217,83 @@ public class QuadraticFunctions {
 
        fout.close();
     }
+
+
+
+    /* *********************************************************************
+     * In this set, we are to convert quadratic functions from standard form to
+     * (h,k) vertex form and vice versa.
+     * *********************************************************************/
+
+    public static void Set03() {
+
+        PrintWriter fout = null;
+        try {fout = new PrintWriter(new FileOutputStream("temp.tex"));}
+        catch (FileNotFoundException e) {/* err handler here. */};
+
+	fout.println("\\documentclass[12pt,legalpaper,twocolumn]{article}\n"
+	    + "\\usepackage{palatino}\n"
+	    + "\\usepackage{amsmath,amssymb,amsfonts}\n"
+	    + "\\advance\\textheight by 1 in\n"
+	    + "\\advance\\textwidth by 1 in\n"
+	    + "\\advance\\voffset by -1 in\n"
+	    + "\\advance\\hoffset by -0.5 in\n"
+	    + "\\begin{document}\n"
+	    + "\\twocolumn [\n"
+	    + "    \\centerline {\\Large \\textbf{Quadratic Functions}}\n"
+	    + "    \\centerline{\\textbf{Vertex and Standard Forms}}\n"
+	    + "    \\vspace {0.5 in}\n"
+	    + "]\n");
+
+       // Now generate ten random problems and write it out.
+
+       Random rgen = new Random();
+       String answerKey = "";
+ 
+       fout.println("\\begin{enumerate}\n");
+   
+       int count = 0;
+       while (count < 50) {
+
+	   int a = rgen.nextInt(24) + 1; a = 12 - a; if (a == 0) a = 1;
+	   int h = rgen.nextInt(20) + 1; h = 10 - h;
+       	   int k = rgen.nextInt(20) + 1; k = 10 - k;
+
+           fout.format("\\item\n"
+	       + "$f(x) = %d(x-%d)^2 + %d\\,\\, \\text {:} (%d, %d)$\n",
+	         a, h, k, h, k);
+        
+
+           // Now the solution.
+
+           answerKey = answerKey 
+               + String.format("\\item $f(x) = %dx^2 + %dx + %d$\n",
+                 a, -2*a*h, a*h*h + k);
+           ++count;
+       }
+       
+       fout.println("\\end{enumerate}\n");
+
+       // Start print of the answer key.
+       // The header ...
+
+       fout.println("\\vfill\\eject\n"
+           + "\\twocolumn[\n"
+           + "\\centerline{\\Large\\textbf{Answer key}}\n"
+           + "\\vspace {0.5 in}\n"
+           + "]\n\n");
+
+       // Here goes the answers ...
+
+       fout.println(
+          "\\begin{enumerate}\n"
+          + "\\setlength\\itemsep{0.1in}\n"
+          + answerKey
+          + "\\end{enumerate}\n"
+          + "\\end{document}\n");
+
+       // And close the output file.
+
+       fout.close();
+    }
 }

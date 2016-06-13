@@ -77,6 +77,7 @@ public class QuizGenFX extends Application {
              "Linear Equations I",
              "Linear Equations II",
              "Quadratic Functions I",
+             "Quadratic Functions III",
              "Quadratic Equations I", 
              "Quadratic Equations II", 
              "Rational Equations I", 
@@ -150,6 +151,12 @@ public class QuizGenFX extends Application {
                 }
                 else if (selected == "Quadratic Functions I") {
                     QuadraticFunctions.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Quadratic Functions III") {
+                    QuadraticFunctions.Set03();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");
                     doneAlert.showAndWait();

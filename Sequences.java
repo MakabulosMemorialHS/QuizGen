@@ -154,8 +154,8 @@ public class Sequences {
                       + String.format("\\,(%d, %d, %d, %d)\n", alpha, beta, gamma, epsilon);
                    break;
 
-               case 4: // In this special case, we just let alpha = 1
-                   alpha = 1;
+               case 4: // In this special case, we just let beta = gamma = 0;
+                   beta = 0;
                    gamma = 0;
                    fout.print("\\item " + azero + "\\,\\, " + aone + "\\,\\, ");
                    for (n = 1; n < 4; ++n) {

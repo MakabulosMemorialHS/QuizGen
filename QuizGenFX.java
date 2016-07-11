@@ -76,6 +76,8 @@ public class QuizGenFX extends Application {
              "Exponents II",
              "Linear Equations I",
              "Linear Equations II",
+             "Polynomials I",
+             "Polynomials II",
              "Quadratic Functions I",
              "Quadratic Functions III",
              "Quadratic Equations I", 
@@ -127,6 +129,18 @@ public class QuizGenFX extends Application {
                 }
                 else if (selected == "Linear Equations II") {
                     LinearEquations.Set02();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Polynomials I") {
+                    Polynomials.Set01();
+                    Alert doneAlert = new Alert(AlertType.INFORMATION, 
+                         "Output written to temp.tex");
+                    doneAlert.showAndWait();
+                }
+                else if (selected == "Polynomials II") {
+                    Polynomials.Set02();
                     Alert doneAlert = new Alert(AlertType.INFORMATION, 
                          "Output written to temp.tex");
                     doneAlert.showAndWait();
